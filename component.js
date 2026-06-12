@@ -8,22 +8,18 @@ function loadComponent(selector, filePath) {
             return response.text();
         })
         .then(html => {
-            document.querySelector(selector).innerHTML = html;
+            const element = document.querySelector(selector);
+            if (element) {
+                element.innerHTML = html;
+            }
         })
         .catch(error => {
             console.error(`Could not load component from ${filePath}:`, error);
         });
 }
 
-// Load the Navbar into the element with ID 'navbar-placeholder'
 document.addEventListener('DOMContentLoaded', () => {
-    loadComponent('#navbar-placeholder', 'navbar.html');
-    // You could do the same for a footer:
-    // loadComponent('#footer-placeholder', 'footer.html');
-});
-
-document.addEventListener('DOMContentLoaded', () => {
-    loadComponent('#footer-placeholder', 'footer.html');
-    // You could do the same for a footer:
-    // loadComponent('#footer-placeholder', 'footer.html');
-});
+    if (document.querySelector('#footer-placeholder')) {
+        loadComponent('#footer-placeholder', 'footer.html');
+    }
+});
